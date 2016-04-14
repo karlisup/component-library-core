@@ -1,0 +1,24 @@
+{
+  "name": "styleguide",
+  "version": "1.0.0",
+  "description": "Future npm module for generating wonderful styleguide",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlisup/styleguide.git"
+  },
+  "keywords": [
+    "styleguide",
+    "css",
+    "generator"
+  ],
+  "author": "Karlis Upitis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karlisup/styleguide/issues"
+  },
+  "homepage": "https://github.com/karlisup/styleguide#readme"
+}
