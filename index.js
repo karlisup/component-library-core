@@ -11,6 +11,9 @@ var fs = require('fs'),						//filesystem
 
 module.exports = function(){
 
+	// -------------------------------------
+	//  Helper functions
+	// -------------------------------------
 	// for IE8 support
 	if (!Array.prototype.indexOf) {
 		Array.prototype.indexOf = function(obj, start) {
@@ -28,28 +31,95 @@ module.exports = function(){
 		}
 	}
 	// http://blog.niftysnippets.org/2010/09/say-what.html
-	var what = Object.prototype.toString;
+	var objTypeString = Object.prototype.toString;
 
+
+
+
+
+	// *************************************
+	//  COMPONENT LIBRARY GENERATOR
+	//	
+	//	...
+	//	
+	// *************************************
 	
 	// -------------------------------------
-	//  V2 Going through folders
+	//  Settings
 	// -------------------------------------
 	var srcpath = 'src/components';
-	var fileTree;
+	var allowedFileExtensions = ['md', 'json', 'Nunjucks'];
 
-	// var filteredTree = directoryTree('/some/path', ['.jpg', '.png']);
+
+	/**
+	 * Initialize calls 3 basic functions
+	 * a) save treeToJSON
+	 * b) generateNavigation
+	 * c) generateContent
+	 */
+	function initialization(){
+
+		// -------------------------------------
+		//  save fileTree to JSON
+		// -------------------------------------
+		console.info("Save Directory Tree in JSON");
+		console.time("Timer");
+		var fileTree = treeToJSON(srcpath, allowedFileExtensions);
+		// console.table(fileTree);
+		// console.log(fileTree);
+		console.timeEnd("Timer");
+
+
+		// -------------------------------------
+		//  generate navigation
+		// -------------------------------------
+		// console.info("Generate navigation");
+		// console.time("Timer");
+		// generateNavigation(fileTree);
+		// // console.table(fileTree);
+		// console.timeEnd("Timer");
+
+		// -------------------------------------
+		//  generate content
+		// -------------------------------------
+		// console.info("Generate content");
+		// console.time("Timer");
+		generateContent(fileTree);
+		// // console.table(fileTree);
+		// console.timeEnd("Timer");
+
+	}
+
+
 	/**
 	 * Recursive function which walks the file-tree and saves it in to the JSON
 	 * @param  {string} dir - recursion starting directory
-	 * @param  {array} accepted - array of accepted file types (otherwise, ignore is more complicated)
+	 * @param  {array} allowedFileExtensions - array of allowedFileExtensions file types (otherwise, ignore is more complicated)
 	 * @return {JSON}  
 	 */
-	function treeToJSON(dir, accepted){
+	function treeToJSON(dir, allowedFileExtensions){
 		var output = [];				// variable which later will be returned.
-		var re = /(?:\.([^.]+))?$/; 	// get extension regexp
-		accepted.toLowerCase();   		// convert accepted filetypes to lowercase
+		var re = /(?:\.([^.]+))?$/; 	// get extension regexp 
+		allowedFileExtensions.toLowerCase();   		// convert allowedFileExtensions filetypes to lowercase
 
-		//TODO try on edge cases (.DS_Store / files w/o extension etc.)
+		// Produce this JSON structure:
+		// [{
+		// 	"name": "january",
+		// 	"path": "winter/january",
+		// 	"type": "directory",
+		// 	"children": [
+		// 		{
+		// 			"path": "winter/january/ski.png",
+		// 			"name": "ski.png",
+		// 			"type": "png"
+		// 		},
+		// 		{
+		// 			"path": "winter/january/snowboard.jpg",
+		// 			"name": "snowboard.jpg",
+		// 			"type": "jpg"
+		// 		}
+		// 	]
+		// }]
 		fs.readdirSync(dir).filter(function(file) {
 			var whitelisted = false;
 			var item = {};
@@ -60,19 +130,19 @@ module.exports = function(){
 			var isDirectory = fs.statSync(item.path).isDirectory();
 			if(isDirectory){
 				// if directory call function on new path
-				item.children = treeToJSON(item.path, accepted);
+				item.children = treeToJSON(item.path, allowedFileExtensions);
 				// console.table(item.children);
 				whitelisted = true;
 			}
 			else{
 				// if file, make sure it's whitelisted
-				if(what.call(accepted) == "[object Array]"){
-					if(accepted.indexOf(item.type) > -1){
+				if(objTypeString.call(allowedFileExtensions) == "[object Array]"){
+					if(allowedFileExtensions.indexOf(item.type) > -1){
 						whitelisted = true;
 					}
 				}
-				else if(what.call(accepted) == "[object String]"){
-					if(accepted.toLowerCase()==item.type){
+				else if(objTypeString.call(allowedFileExtensions) == "[object String]"){
+					if(allowedFileExtensions==item.type){
 						whitelisted = true;
 					}
 				}
@@ -89,22 +159,51 @@ module.exports = function(){
 
 
 	function generateContent(tree){
-		var tmplPage = 'src/styleguide/source/page.template';
-		var resultUrl = 'src/styleguide/index.nunjucks';
-		var placeholderContent = '[[[styleguide-placeholder]]]';
-		var content = 'There are no components in components folder';
+		var folderTemplate 	= 'src/styleguide/source/folder.template';
+		var templateTemplate 	= 'src/styleguide/source/template.template';
+		var outputUrl 			= 'src/styleguide/index.nunjucks';
+		var content 			= 'There are no components in components folder';
+		var placeholder = {
+			url: "/\[\[\[template-url]]]/g",
+			data: "/\[\[\[folder-data]]]/g",
+			info: "/\[\[\[folder-info]]]/g"
+		};
+
 
 		// -------------------------------------
-		//  read files
+		//  get array of components
 		// -------------------------------------
-		var contentsPage = fs.readFileSync(tmplPage).toString();
-		
+		var components = JSONtoFile(tree);
+		console.table(components);
+		// console.log(components.length);
 
-		// console.log(tree, tree.length);
-		console.log(JSONtoFile(tree));
-		// for(let m=0)
+		// -------------------------------------
+		//  read template
+		// -------------------------------------
+		var folderContents = fs.readFileSync(folderTemplate).toString();
+		var templateContents = fs.readFileSync(templateTemplate).toString();
 
-		
+		// -------------------------------------
+		//  walk the tree
+		// -------------------------------------
+		if(components.length>0) content = "";
+		for (var key in components) {
+			if (components.hasOwnProperty(key)) {
+				console.info("Building a folder");
+				var templatesContent = '';
+				var templates = components[key].tmpl;
+
+				for (var key in templates) {
+					templatesContent += templateContents
+----------------------------------------------------------------------------------------------------------------------------------------------------
+						
+						.replace(placeholder.url, templates[key].replace(/\\/g,"/"))
+						.replace(placeholder.data, templates[])	
+				}
+				// tmp = folderContents
+				// 		.replace(plhdFileUrl, files[i].replace(/\\/g,"/"))
+			}
+		}
 		// for(var i=0; i<count; i++){
 		// 	//tmp solution (doesn't regenerate on template modifications)
 		// 	var sourceCode = fs.readFileSync(files[i],'utf8');
@@ -115,12 +214,20 @@ module.exports = function(){
 		// }
 		// contentsPage = contentsPage.replace(plhdLoop, content); 
 		// // -------------------------------------
-		// //  write files
+		// //  rewrite template
 		// // -------------------------------------
 		// fs.writeFileSync(resultUrl, contentsPage);
 
 	}
+
+	/**
+	 * Recursive function which walks the JSON tree and
+	 * returns an array of objects (components).
+	 * Object consist of - template, data and info files.
+	 * @param {json} items - file structure in JSON format
+	 */
 	function JSONtoFile(items){
+		// console.info("----------- calling JSONtoFile -----------");
 		var results = [],
 			folder  = {},
 			tmplExt = ['nunjucks', 'nj'],
@@ -134,17 +241,13 @@ module.exports = function(){
 		for (var key in items) {
 			if (items.hasOwnProperty(key)) {
 				if(items[key].type==='folder'){
-					if(typeof items[key].children != "undefined"){
-						// console.log(JSONtoFile(items[key].children));
+					// console.info(objTypeString.call(items[key].children));
+					if(objTypeString.call(items[key].children) != "[object Undefined]"){ //if has children
 						var output = JSONtoFile(items[key].children);
-						if(what.call(output)!="[object Undefined]"){
-							// results.concat(output);
-							results = output;
-							// console.log(results);
+						if(objTypeString.call(output)!="[object Undefined]"){
+							// console.table(output);
+							results = results.concat(output); 
 						}
-						// if(output != undefined) 
-						console.log(results);
-						// console.log();
 					}
 				}
 				else{
@@ -174,165 +277,5 @@ module.exports = function(){
 		if (results.length > 0) return results;
 	}
 
-	// function replaceTemplate(data){
-	// 	var contentsElem = fs.readFileSync(tmplElem).toString(),
-	// 		placeholderUrl 	= "/\[\[\[file-url]]]/g",
-	// 		placeholderInfo = "/\[\[\[file-description]]]/g";
-
-
-	// 	console.log(data);
-	// }
-
-
-
-	function initialization(){
-
-		// -------------------------------------
-		//  save fileTree to JSON
-		// -------------------------------------
-		console.info("Save Directory Tree in JSON");
-		console.time("Timer");
-		fileTree = treeToJSON(srcpath, ['md', 'json', 'Nunjucks']);
-		// console.table(fileTree);
-		console.timeEnd("Timer");
-
-
-		// // -------------------------------------
-		// //  generate navigation
-		// // -------------------------------------
-		// console.info("Generate navigation");
-		// console.time("Timer");
-		// generateNavigation(fileTree);
-		// // console.table(fileTree);
-		// console.timeEnd("Timer");
-
-		// -------------------------------------
-		//  generate content
-		// -------------------------------------
-		console.info("Generate content");
-		console.time("Timer");
-		generateContent(fileTree);
-		// console.table(fileTree);
-		console.timeEnd("Timer");
-
-	}
-
-
 	initialization();
-
-
-
 }
-// }
-// photos
-// ├── summer
-// │   └── june
-// │       └── windsurf.jpg
-// └── winter
-//     └── january
-//         ├── ski.png
-//         └── snowboard.jpg
-
-
-
-//   "children": [
-//     {
-//       "path": "winter/january",
-//       "name": "january",
-//       "type": "directory",
-//       "children": [
-//         {
-//           "path": "winter/january/ski.png",
-//           "name": "ski.png",
-//           "type": "file"
-//         },
-//         {
-//           "path": "winter/january/snowboard.jpg",
-//           "name": "snowboard.jpg",
-//           "type": "file"
-//         }
-//       ]
-//     }
-//   ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ****** GARBAGE *******
-// -------------------------------------
-	//  V1 Going through files
-	// -------------------------------------
-	// recursive('src/components',['*.json', '*.scss', '*.md'] , function (err, files) {
-	// 	var count = files.length;
-	// 	if(count===0) return;
-	// 	content = '';
-	// 	for(var i=0; i<count; i++){
-	// 		//tmp solution (doesn't regenerate on template modifications)
-	// 		var sourceCode = fs.readFileSync(files[i],'utf8');
-	// 		content += contentsElem
-	// 			.replace(plhdFileUrl, files[i].replace(/\\/g,"/"))
-	// 			.replace(plhdFileSrc, escape(sourceCode))
-	// 			.replace(plhdFileMD , escape(sourceCode));
-	// 	}
-	// 	contentsPage = contentsPage.replace(plhdLoop, content); 
-	// 	// -------------------------------------
-	// 	//  write files
-	// 	// -------------------------------------
-	// 	fs.writeFileSync(resultUrl, contentsPage);
-	// });
-
-
-
-
-// 
-// 
-// // function getDirectories(srcpath) {
-//   return fs.readdirSync(srcpath).filter(function(file) {
-//   	console.log(file);
-//   	// console.log(fs.statSync(path.join(srcpath, file)).isDirectory())
-//     // return fs.statSync(path.join(srcpath, file)).isDirectory();
-//   });
-// }
-
-// console.log(getDirectories('src'));
-
-
-// concat([
-// 	'src/a.txt',
-// 	'src/b.txt',
-// 	'src/subfolder/c.txt'
-// 	], 'dest/concat.txt', function() {
-// 		console.log('done');
-// 	}
-// );
-// 
-// 
-// function concat(files, destination) {
-// 	var fs = require('fs');
-// 	var result = '';
-
-// 	files.forEach(function(file) {
-// 		result += fs.readFileSync(file).toString();
-// 	});
-
-// 	try {
-// 		fs.writeFileSync(destination, result);
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
-// }
