@@ -191,10 +191,12 @@ module.exports = function(){
 				console.info("Building a folder");
 				var tmplContent = '';
 				var tmpl = components[key].tmpl;
+				// var info = (objTypeString.call(components[key].info[0]) == "[object String]") ?
+				// 	fs.readFileSync(components[key].info[0]).toString() : "";
 				var info = (objTypeString.call(components[key].info[0]) == "[object String]") ?
-					fs.readFileSync(components[key].info[0]).toString() : "";
+					components[key].info[0] : "";
 				var data = (objTypeString.call(components[key].data[0]) == "[object String]") ?
-					fs.readFileSync(components[key].data[0]).toString() : "";
+					fs.readFileSync(components[key].data[0]).toString() : "''";
 
 				for (var index in tmpl) {
 					if (tmpl.hasOwnProperty(index)) {
@@ -207,7 +209,7 @@ module.exports = function(){
 
 				// replace README & looping content placeholders
 				content += folderContents
-					.replace(placeholder.info, info)
+					.replace(placeholder.info, info.replace(/\\/g,"/"))
 					.replace(placeholder.tmpl, tmplContent);
 			}
 		}
