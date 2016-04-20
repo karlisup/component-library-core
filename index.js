@@ -5,36 +5,12 @@ var fs = require('fs'),						//filesystem
 	path = require('path'),					//paths
 	recursive = require('recursive-readdir'),
 	escape = require('escape-html'),
-	console = require('better-console');
+	console = require('better-console'),
+	helpers = require('./helpers');
 
 
 
 module.exports = function(){
-
-	// -------------------------------------
-	//  Helper functions
-	// -------------------------------------
-	// for IE8 support
-	if (!Array.prototype.indexOf) {
-		Array.prototype.indexOf = function(obj, start) {
-			for (var i = (start || 0), j = this.length; i < j; i++) {
-				if (this[i] === obj) { return i; }
-			}
-			return -1;
-		}
-	}
-	if (!Array.prototype.toLowerCase) {
-		Array.prototype.toLowerCase = function() { 
-			for (var i = 0; i < this.length; i++) {
-				this[i] = this[i].toString().toLowerCase(); 
-			}
-		}
-	}
-	// http://blog.niftysnippets.org/2010/09/say-what.html
-	var objTypeString = Object.prototype.toString;
-
-
-
 
 
 	// *************************************
@@ -50,6 +26,12 @@ module.exports = function(){
 	var srcpath = 'src/components';
 	var allowedFileExtensions = ['md', 'json', 'Nunjucks'];
 
+
+	// -------------------------------------
+	//  Helper functions
+	// -------------------------------------
+	helpers.init();
+	var objTypeString = Object.prototype.toString; // http://blog.niftysnippets.org/2010/09/say-what.html
 
 	/**
 	 * Initialize calls 3 basic functions
@@ -84,10 +66,26 @@ module.exports = function(){
 		// -------------------------------------
 		// console.info("Generate content");
 		// console.time("Timer");
-		generateContent(fileTree);
+		var content = generateContent(fileTree);
 		// // console.table(fileTree);
 		// console.timeEnd("Timer");
+		
 
+		// -------------------------------------
+		//  filling template
+		// -------------------------------------
+		var placeholder = {
+			styleguide: /\[\[\[styleguide-placeholder]]]/g
+		},
+			pageTemplate 	= 'src/styleguide/source/page.template',
+			resultUrl 	 	= 'src/styleguide/index.nunjucks',
+			pageSource 		= fs.readFileSync(pageTemplate).toString(),
+			newSource	 	= pageSource
+								.replace(placeholder.styleguide, content);
+								// .replace(placeholder.url, tmpl[index].replace(/\\/g,"/"))
+		// console.log(content);
+		// console.log(newSource);
+		fs.writeFileSync(resultUrl, newSource);
 	}
 
 
@@ -164,9 +162,10 @@ module.exports = function(){
 		var outputUrl 			= 'src/styleguide/index.nunjucks';
 		var content 			= 'There are no components in components folder';
 		var placeholder = {
-			url: "/\[\[\[template-url]]]/g",
-			data: "/\[\[\[folder-data]]]/g",
-			info: "/\[\[\[folder-info]]]/g"
+			url: /\[\[\[template-url]]]/g,
+			data: /\[\[\[template-data]]]/g,
+			info: /\[\[\[folder-info]]]/g,
+			tmpl: /\[\[\[folder-templates]]]/g
 		};
 
 
@@ -174,7 +173,7 @@ module.exports = function(){
 		//  get array of components
 		// -------------------------------------
 		var components = JSONtoFile(tree);
-		console.table(components);
+		//console.table(components);
 		// console.log(components.length);
 
 		// -------------------------------------
@@ -190,34 +189,31 @@ module.exports = function(){
 		for (var key in components) {
 			if (components.hasOwnProperty(key)) {
 				console.info("Building a folder");
-				var templatesContent = '';
-				var templates = components[key].tmpl;
+				var tmplContent = '';
+				var tmpl = components[key].tmpl;
+				var info = (objTypeString.call(components[key].info[0]) == "[object String]") ?
+					fs.readFileSync(components[key].info[0]).toString() : "";
+				var data = (objTypeString.call(components[key].data[0]) == "[object String]") ?
+					fs.readFileSync(components[key].data[0]).toString() : "";
 
-				for (var key in templates) {
-					templatesContent += templateContents
-----------------------------------------------------------------------------------------------------------------------------------------------------
-						
-						.replace(placeholder.url, templates[key].replace(/\\/g,"/"))
-						.replace(placeholder.data, templates[])	
+				for (var index in tmpl) {
+					if (tmpl.hasOwnProperty(index)) {
+						// replace template & data placeholders
+						tmplContent += templateContents
+							.replace(placeholder.url, tmpl[index].replace(/\\/g,"/"))
+							.replace(placeholder.data, data);
+					}
 				}
-				// tmp = folderContents
-				// 		.replace(plhdFileUrl, files[i].replace(/\\/g,"/"))
+
+				// replace README & looping content placeholders
+				content += folderContents
+					.replace(placeholder.info, info)
+					.replace(placeholder.tmpl, tmplContent);
 			}
 		}
-		// for(var i=0; i<count; i++){
-		// 	//tmp solution (doesn't regenerate on template modifications)
-		// 	var sourceCode = fs.readFileSync(files[i],'utf8');
-		// 	content += contentsElem
-		// 		.replace(plhdFileUrl, files[i].replace(/\\/g,"/"))
-		// 		.replace(plhdFileSrc, escape(sourceCode))
-		// 		.replace(plhdFileMD , escape(sourceCode));
-		// }
-		// contentsPage = contentsPage.replace(plhdLoop, content); 
-		// // -------------------------------------
-		// //  rewrite template
-		// // -------------------------------------
-		// fs.writeFileSync(resultUrl, contentsPage);
 
+		//console.log(content);
+		return content;
 	}
 
 	/**
