@@ -24,7 +24,7 @@ module.exports = function(){
 	//  Settings
 	// -------------------------------------
 	var srcpath = 'src/components';
-	var allowedFileExtensions = ['md', 'json', 'Nunjucks'];
+	var allowedFileExtensions = ['md', 'json', 'Nunjucks', 'njk'];
 
 
 	// -------------------------------------
@@ -78,7 +78,7 @@ module.exports = function(){
 			styleguide: /\[\[\[styleguide-placeholder]]]/g
 		},
 			pageTemplate 	= 'src/styleguide/source/page.template',
-			resultUrl 	 	= 'src/styleguide/index.nunjucks',
+			resultUrl 	 	= 'src/styleguide/index.njk',
 			pageSource 		= fs.readFileSync(pageTemplate).toString(),
 			newSource	 	= pageSource
 								.replace(placeholder.styleguide, content);
@@ -159,7 +159,7 @@ module.exports = function(){
 	function generateContent(tree){
 		var folderTemplate 	= 'src/styleguide/source/folder.template';
 		var templateTemplate 	= 'src/styleguide/source/template.template';
-		var outputUrl 			= 'src/styleguide/index.nunjucks';
+		var outputUrl 			= 'src/styleguide/index.njk';
 		var content 			= 'There are no components in components folder';
 		var placeholder = {
 			url: /\[\[\[template-url]]]/g,
@@ -228,7 +228,7 @@ module.exports = function(){
 		// console.info("----------- calling JSONtoFile -----------");
 		var results = [],
 			folder  = {},
-			tmplExt = ['nunjucks', 'nj'],
+			tmplExt = ['nunjucks', 'njk'],
 			dataExt = ['json'],
 			infoExt = ['markdown','md'];
 		folder.tmpl = [];
