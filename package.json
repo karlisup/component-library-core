@@ -24,6 +24,7 @@
   "devDependencies": {
     "better-console": "^0.2.4",
     "escape-html": "^1.0.3",
+    "mkdirp": "^0.5.1",
     "recursive-readdir": "^2.0.0",
     "twig": "^0.8.9"
   }

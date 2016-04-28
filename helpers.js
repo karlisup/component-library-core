@@ -1,8 +1,12 @@
-module.exports = {
-	init: function () {
-		// -------------------------------------
+var mkdirp = require('mkdirp');
+var fs = require('fs');
+var getDirName = require('path').dirname;
+
+// -------------------------------------
 		//  Helper functions
 		// -------------------------------------
+module.exports = {
+	init: function () {
 		// for IE8 support
 		if (!Array.prototype.indexOf) {
 			Array.prototype.indexOf = function(obj, start) {
@@ -19,5 +23,14 @@ module.exports = {
 				}
 			}
 		}
+	},
+
+	writeFile: function(path, contents, cb) {
+		// when creating file - create missing folders as well
+		mkdirp(getDirName(path), function (err) {
+			if (err) return cb(err);
+
+			fs.writeFile(path, contents, cb);
+		});
 	}
 };

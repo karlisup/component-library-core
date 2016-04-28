@@ -1,26 +1,60 @@
 
 
 // load dependencies
-var fs = require('fs'),						//filesystem
-	path = require('path'),					//paths
-	recursive = require('recursive-readdir'),
-	escape = require('escape-html'),
+var fs 		= require('fs'),					//filesystem
+	path 	= require('path'),					//paths
+	// recursive = require('recursive-readdir'),
+	// escape = require('escape-html'),
 	console = require('better-console'),
 	helpers = require('./helpers'),
 
-	twig = require('twig');
+	Twig = require('twig'),
+	twig = Twig.twig;						//twig render function
 
 
 
-// module.exports = function(){
-
-console.log('asd');
 
 
-function treeToJSON(dir, allowedFileExtensions){
+// *************************************
+//  COMPONENT LIBRARY GENERATOR
+//  
+// *************************************
+
+// -------------------------------------
+//  Settings
+// -------------------------------------
+ 
+// input
+var location = {
+	src  : '..\\..\\src\\components\\',
+	dest : '..\\..\\dest\\components\\'
+}
+var extensions = {
+	template: ['twig'],
+	output: 'html'
+
+}
+
+// output
+var treeStructure = [];			// folder structure (for navigation)
+var components = [];			// list of components
+
+// -------------------------------------
+//  Helper functions
+// -------------------------------------
+helpers.init();
+var objTypeString = Object.prototype.toString; // http://blog.niftysnippets.org/2010/09/say-what.html
+
+
+// Init
+treeStructure = treeToJSON(location.src);
+
+
+// recursive function
+function treeToJSON(dir){
+
 	var output = [];				// variable which later will be returned.
 	var re = /(?:\.([^.]+))?$/; 	// get extension regexp 
-	allowedFileExtensions.toLowerCase();   		// convert allowedFileExtensions filetypes to lowercase
 
 	// Produce this JSON structure:
 	// [{
@@ -40,7 +74,16 @@ function treeToJSON(dir, allowedFileExtensions){
 	// 		}
 	// 	]
 	// }]
-	fs.readdirSync(dir).filter(function(file) {
+	// 
+	// Save components in array like:
+	// [{
+	// 	"path": "src/to/",
+	// 	"name": "component",
+	// 	"tmpl": "src/to/component.tmpl",
+	// 	"data": "src/to/component.json",
+	// 	"info": "src/to/component.md",
+	// }]
+	fs.readdirSync(dir).filter(function(file){
 		var whitelisted = false;
 		var item = {};
 		item.name = file;
@@ -50,26 +93,90 @@ function treeToJSON(dir, allowedFileExtensions){
 		var isDirectory = fs.statSync(item.path).isDirectory();
 		if(isDirectory){
 			// if directory call function on new path
-			item.children = treeToJSON(item.path, allowedFileExtensions);
-			// console.table(item.children);
+			item.children = treeToJSON(item.path);
 			whitelisted = true;
 		}
 		else{
 			// if file, make sure it's whitelisted
-			if(objTypeString.call(allowedFileExtensions) == "[object Array]"){
-				if(allowedFileExtensions.indexOf(item.type) > -1){
+			if(objTypeString.call(extensions.template) == "[object Array]"){
+				if(extensions.template.indexOf(item.type) > -1){
 					whitelisted = true;
+					// assamble Component
+					var component = {};
+					component.path = dir.split(location.src)[1]+"\\"; // get relative url + add slash at the end
+					component.name = item.name.substr(0, item.name.indexOf('.'));  
+					component.tmpl = path.join(component.path, file);
+					component.data = '';
+					component.info = '';
+					assembleComponent(component);
 				}
 			}
-			else if(objTypeString.call(allowedFileExtensions) == "[object String]"){
-				if(allowedFileExtensions==item.type){
-					whitelisted = true;
-				}
+			else{
+				console.warn('Variable allowedFileExtensions is not array.')
 			}
 		}
 		if(whitelisted) output.push(item);
 	});
 	return output;
+}
+
+
+function assembleComponent(component) {
+	var re = /(?:\.([^.]+))?$/; 	// get extension regexp
+	fs.readdirSync(location.src+component.path).filter(function(file){
+		var extension = (re.exec(file)[1] == undefined)? 'folder': re.exec(file)[1].toLowerCase();
+		if(file.substr(0, file.indexOf('.')) === component.name){ // only files with the same name as template
+			switch (extension) {
+				case 'json':
+				component.data = path.join(component.path, file);
+				break;
+				case 'md':
+				component.info = path.join(component.path, file);
+				break;
+			}
+		}
+	});
+	components.push(component);
+}
+
+
+
+
+
+
+
+function build(){
+
+	for (var key in components) {
+		if (components.hasOwnProperty(key)) {
+			// console.log(components[key].tmpl);
+			var templateData = '',
+				templateContents = fs.readFileSync(location.src+components[key].tmpl).toString();
+			if(components[key].data !== ''){
+				templateData = fs.readFileSync(location.src+components[key].data).toString();
+			}
+			
+			var template = twig({ data: templateContents});
+			var output = template.render({ templateData });
+			components[key].compiled = components[key].path+components[key].name+'.'+extensions.output;
+			
+			// console.log(location.dest+components[key].compiled);
+			helpers.writeFile(location.dest+components[key].compiled, output);
+			// fs.writeFileSync(location.dest+components[key].path+'.'+extensions.output, output);
+		}
+	}
+
+	// var template = twig({ data: templateContents});
+
+	// var template = twig({
+	// 	id: "list", // id is optional, but useful for referencing the template later
+	// 	data: "{% for value in list %}{{ value }}, {% endfor %}"
+	// });
+
+	// var output = template.render({
+	// 	list: ["one", "two", "three"]
+	// });
+	// console.log(output);
 }
 
 
@@ -79,6 +186,9 @@ function treeToJSON(dir, allowedFileExtensions){
 
 
 
+console.table(treeStructure);
+build();
+console.table(components);
 
 
 
@@ -88,10 +198,7 @@ function treeToJSON(dir, allowedFileExtensions){
 
 
 
-
-
-
-
+// module.exports = function(){
 
 
 	// // *************************************
@@ -104,7 +211,7 @@ function treeToJSON(dir, allowedFileExtensions){
 	// // -------------------------------------
 	// //  Settings
 	// // -------------------------------------
-	// var srcpath = 'src/components';
+	// var location.src = 'src/components';
 	// var allowedFileExtensions = ['md', 'json', 'Nunjucks', 'njk'];
 
 
@@ -127,7 +234,7 @@ function treeToJSON(dir, allowedFileExtensions){
 	// 	// -------------------------------------
 	// 	console.info("Save Directory Tree in JSON");
 	// 	console.time("Timer");
-	// 	var fileTree = treeToJSON(srcpath, allowedFileExtensions);
+	// 	var fileTree = treeToJSON(location.src, allowedFileExtensions);
 	// 	// console.table(fileTree);
 	// 	// console.log(fileTree);
 	// 	console.timeEnd("Timer");
