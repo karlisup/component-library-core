@@ -67,7 +67,7 @@ try {
 }
 
 // recursive function
-function treeToJSON(dir){
+function treeToJSON(dir, buildComponentsList = false){
 
 	var output = [];				// variable which later will be returned.
 	// var re = /(?:\.([^.]+))?$/; 	// get extension regexp TODO:deprecated
@@ -116,9 +116,10 @@ function treeToJSON(dir){
 			if(extensions.template === item.type){
 				whitelisted = true;
 				// assamble Component
-				
-				var component = new Component(item.path);
-				assembleComponent(component);
+				if(buildComponentsList){
+					var component = new Component(item.path);
+					assembleComponent(component);
+				}
 			}
 		}
 		if(whitelisted) output.push(item);
@@ -149,23 +150,11 @@ function assembleComponent(component) {
 function build(){
 	// TODO make sure that there are no components in dest folder before creating new
 	// could be the situation when .json files are missing/deleted, but dest component folder is still there
-	treeStructure = treeToJSON(location.src);
+	treeStructure = treeToJSON(location.src, true);
 
 	for (var key in components) {
 		if (components.hasOwnProperty(key)) {
-			var templateData = '',
-				templateContents = fs.readFileSync(location.src+components[key].tmpl).toString();
-			if(components[key].data !== ''){
-				templateData = fs.readFileSync(location.src+components[key].data).toString();
-			}
-			
-			// compile template with given data
-			var template = twig({ data: templateContents});
-			var output = template.render({ templateData });
-			components[key].compiled = components[key].path+components[key].name+extensions.output;
-			
-			// create file
-			helpers.writeFile(location.dest+components[key].compiled, output);
+			componentRender(components[key]);
 		}
 	}
 
@@ -180,6 +169,9 @@ function build(){
 }
 
 
+// -------------------------------------
+//  Watch task
+// -------------------------------------
 watch.createMonitor(location.src, function (monitor) {
 	monitor.on("created", function (filePath, stat) {
 		console.log('created', filePath);
@@ -193,17 +185,12 @@ watch.createMonitor(location.src, function (monitor) {
 		}
 		else if(extension === ''){} // folder
 		else{
-
+			var component = componentExist(filePath);
+			if(component){
+				componentUpdate(component, filePath);
+				componentRender(component);
+			}
 		}
-		
-
-		// var component = {};
-		// component.path = dir.split(location.src)[1]+"\\"; // get relative url + add slash at the end
-		// component.name = item.name.substr(0, item.name.indexOf('.'));  
-		// component.tmpl = path.join(component.path, file);
-		// component.data = '';
-		// component.info = '';
-		// assembleComponent(component);
 	})
 	monitor.on("changed", function (f, curr, prev) {
 		console.log('changed', f);
@@ -217,12 +204,68 @@ watch.createMonitor(location.src, function (monitor) {
 })
 
 
+// -------------------------------------
+//  component related functions
+// -------------------------------------
+function componentRender(component){
+	var templateData = '';
+	var	templateContents = fs.readFileSync(location.src+component.tmpl).toString();
+	if(component.data !== ''){
+		templateData = fs.readFileSync(location.src+component.data).toString();
+	}
+	
+	// compile template with given data
+	var template = twig({ data: templateContents});
+	var output = template.render({ templateData });
+	component.compiled = component.path+component.name+extensions.output;
+
+	// create file
+	helpers.writeFile(location.dest+components[key].compiled, output);
+}
+
+function componentExist(filePath){
+	//TODO if passed colors.txt -- will still return colors object (there are no limitation for .extensions)
+	//unique ID - path to item + name or tmpl name
+	var compPath = path.dirname(filePath).split(location.src)[1]; // relative folder url
+	var compExtension = path.extname(filePath).toLowerCase();
+	var compName = path.basename(filePath, compExtension); ///foo/bar/baz/asdf/quux.html ==> quux;
+	console.log(compPath, compName, compExtension);
+	for (var key in components) {
+		if (components.hasOwnProperty(key)) {
+			if(components[key].path === compPath && components[key].name === compName){
+				return components[key];
+			}
+		}
+	}
+	return false;
+}
+
+function componentUpdate(component, filePath){
+	if(['.md','.json'].indexOf(extension) > -1){
+		var relativeFileLocation = filePath.split(location.src)[1]; // relative file url
+		switch (extension) {
+			case '.json':
+			component.data = relativeFileLocation;
+			break;
+			case '.md':
+			component.info = relativeFileLocation;
+			break;
+		}
+		reloadTreeStructure()
+	}
+}
 
 
 
 
 
-
+/**
+ * Function to update JSON tree structure (if file added/removed).
+ */
+function reloadTreeStructure(){
+	treeStructure = treeStructure = treeToJSON(location.src);
+	helpers.writeFile(location.styleguide+'treeStructure.json', JSON.stringify(treeStructure, null, 4));
+}
 
 
 
