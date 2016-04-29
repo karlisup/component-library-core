@@ -1,17 +1,20 @@
 
 
 // load dependencies
-var fs 		= require('fs'),					//filesystem
-	path 	= require('path'),					//paths
-	// recursive = require('recursive-readdir'),
-	// escape = require('escape-html'),
-	console = require('better-console'),
-	helpers = require('./helpers'),
+const fs = require('fs');					//filesystem
+const path	= require('path');					//paths
+const console = require('better-console');
+const Twig = require('twig');
+const twig = Twig.twig;						//twig render function
+const watch = require('watch');
+// local dependencies
+const helpers = require('./helpers');
 
-	Twig = require('twig'),
-	twig = Twig.twig;						//twig render function
-
-
+// -------------------------------------
+//  Helper functions
+// -------------------------------------
+helpers.init();
+var objTypeString = Object.prototype.toString; // http://blog.niftysnippets.org/2010/09/say-what.html
 
 
 
@@ -27,34 +30,47 @@ var fs 		= require('fs'),					//filesystem
 // input
 var location = {
 	src  : '..\\..\\src\\components\\',
-	dest : '..\\..\\dest\\components\\'
+	dest : '..\\..\\dest\\components\\',
+	styleguide : '..\\..\\src\\styleguide\\'
 }
 var extensions = {
-	template: ['twig'],
-	output: 'html'
+	template: '.twig',
+	output: '.html'
 
+}
+
+function Component(filePath){
+	this.path = ''; // relateive url
+	this.name = '';
+	this.tmpl = '';
+	this.data = '';
+	this.info = '';
+
+	if(filePath){
+		this.path = path.dirname(filePath).split(location.src)[1]; // relative folder url
+		this.name = path.basename(filePath, extensions.template); ///foo/bar/baz/asdf/quux.html ==> quux;
+		this.tmpl = path.join(this.path, this.name+extensions.template);
+	}
 }
 
 // output
 var treeStructure = [];			// folder structure (for navigation)
 var components = [];			// list of components
-
-// -------------------------------------
-//  Helper functions
-// -------------------------------------
-helpers.init();
-var objTypeString = Object.prototype.toString; // http://blog.niftysnippets.org/2010/09/say-what.html
-
-
-// Init
-treeStructure = treeToJSON(location.src);
-
+try {
+	treeStructure = fs.readFileSync(location.styleguide+'treeStructure.json').toString();
+	components = fs.readFileSync(location.styleguide+'components.json').toString();
+} catch (e) {
+	console.warn('File Not found: '+e.path);
+	console.warn('Running script for the first time?');
+	console.info('Running build() function');
+	build();
+}
 
 // recursive function
 function treeToJSON(dir){
 
 	var output = [];				// variable which later will be returned.
-	var re = /(?:\.([^.]+))?$/; 	// get extension regexp 
+	// var re = /(?:\.([^.]+))?$/; 	// get extension regexp TODO:deprecated
 
 	// Produce this JSON structure:
 	// [{
@@ -88,8 +104,7 @@ function treeToJSON(dir){
 		var item = {};
 		item.name = file;
 		item.path = path.join(dir, file);
-		item.type = (re.exec(file)[1] == undefined)? 'folder': re.exec(file)[1].toLowerCase();
-
+		item.type = (path.extname(file) === '')? 'folder': path.extname(file).toLowerCase();
 		var isDirectory = fs.statSync(item.path).isDirectory();
 		if(isDirectory){
 			// if directory call function on new path
@@ -98,21 +113,12 @@ function treeToJSON(dir){
 		}
 		else{
 			// if file, make sure it's whitelisted
-			if(objTypeString.call(extensions.template) == "[object Array]"){
-				if(extensions.template.indexOf(item.type) > -1){
-					whitelisted = true;
-					// assamble Component
-					var component = {};
-					component.path = dir.split(location.src)[1]+"\\"; // get relative url + add slash at the end
-					component.name = item.name.substr(0, item.name.indexOf('.'));  
-					component.tmpl = path.join(component.path, file);
-					component.data = '';
-					component.info = '';
-					assembleComponent(component);
-				}
-			}
-			else{
-				console.warn('Variable allowedFileExtensions is not array.')
+			if(extensions.template === item.type){
+				whitelisted = true;
+				// assamble Component
+				
+				var component = new Component(item.path);
+				assembleComponent(component);
 			}
 		}
 		if(whitelisted) output.push(item);
@@ -120,17 +126,16 @@ function treeToJSON(dir){
 	return output;
 }
 
-
 function assembleComponent(component) {
-	var re = /(?:\.([^.]+))?$/; 	// get extension regexp
+	// var re = /(?:\.([^.]+))?$/; 	// get extension regexp TODO:deprecated
 	fs.readdirSync(location.src+component.path).filter(function(file){
-		var extension = (re.exec(file)[1] == undefined)? 'folder': re.exec(file)[1].toLowerCase();
+		var extension = (path.extname(file) == undefined)? 'folder': path.extname(file).toLowerCase();
 		if(file.substr(0, file.indexOf('.')) === component.name){ // only files with the same name as template
 			switch (extension) {
-				case 'json':
+				case '.json':
 				component.data = path.join(component.path, file);
 				break;
-				case 'md':
+				case '.md':
 				component.info = path.join(component.path, file);
 				break;
 			}
@@ -141,54 +146,83 @@ function assembleComponent(component) {
 
 
 
-
-
-
-
 function build(){
+	// TODO make sure that there are no components in dest folder before creating new
+	// could be the situation when .json files are missing/deleted, but dest component folder is still there
+	treeStructure = treeToJSON(location.src);
 
 	for (var key in components) {
 		if (components.hasOwnProperty(key)) {
-			// console.log(components[key].tmpl);
 			var templateData = '',
 				templateContents = fs.readFileSync(location.src+components[key].tmpl).toString();
 			if(components[key].data !== ''){
 				templateData = fs.readFileSync(location.src+components[key].data).toString();
 			}
 			
+			// compile template with given data
 			var template = twig({ data: templateContents});
 			var output = template.render({ templateData });
-			components[key].compiled = components[key].path+components[key].name+'.'+extensions.output;
+			components[key].compiled = components[key].path+components[key].name+extensions.output;
 			
-			// console.log(location.dest+components[key].compiled);
+			// create file
 			helpers.writeFile(location.dest+components[key].compiled, output);
-			// fs.writeFileSync(location.dest+components[key].path+'.'+extensions.output, output);
 		}
 	}
 
-	// var template = twig({ data: templateContents});
-
-	// var template = twig({
-	// 	id: "list", // id is optional, but useful for referencing the template later
-	// 	data: "{% for value in list %}{{ value }}, {% endfor %}"
-	// });
-
-	// var output = template.render({
-	// 	list: ["one", "two", "three"]
-	// });
-	// console.log(output);
+	// save tree structure & components in .json files
+	console.table(treeStructure);
+	// console.log(JSON.stringify(treeStructure, null, 4));
+	console.table(components);
+	// console.log(location.styleguide+'treeStructure.json');
+	// console.log(location.styleguide+'components.json');
+	// helpers.writeFile(location.styleguide+'treeStructure.json', JSON.stringify(treeStructure, null, 4));
+	// helpers.writeFile(location.styleguide+'components.json', JSON.stringify(components, null, 4));
 }
 
 
+watch.createMonitor(location.src, function (monitor) {
+	monitor.on("created", function (filePath, stat) {
+		console.log('created', filePath);
+		// if new template --> assembleComponent
+		// if new file with same name as template - update .json(s)
+		var extension = path.extname(filePath).toLowerCase();
+		console.log(extension);
+		if(extension === extensions.template){
+			var component = new Component(filePath);
+			assembleComponent(component);
+		}
+		else if(extension === ''){} // folder
+		else{
+
+		}
+		
+
+		// var component = {};
+		// component.path = dir.split(location.src)[1]+"\\"; // get relative url + add slash at the end
+		// component.name = item.name.substr(0, item.name.indexOf('.'));  
+		// component.tmpl = path.join(component.path, file);
+		// component.data = '';
+		// component.info = '';
+		// assembleComponent(component);
+	})
+	monitor.on("changed", function (f, curr, prev) {
+		console.log('changed', f);
+		// Handle file changes
+	})
+	monitor.on("removed", function (f, stat) {
+		console.log('removed', f);
+		// Handle removed files
+	})
+// monitor.stop(); // Stop watching
+})
 
 
 
 
 
 
-console.table(treeStructure);
-build();
-console.table(components);
+
+
 
 
 
