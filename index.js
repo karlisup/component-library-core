@@ -67,8 +67,9 @@ try {
 }
 
 // recursive function
-function treeToJSON(dir, buildComponentsList = false){
-
+function treeToJSON(dir, buildComponentsList){
+   buildComponentsList = typeof buildComponentsList !== 'undefined' ? buildComponentsList : false;
+   console.log('buildCompList'+buildComponentsList);
 	var output = [];				// variable which later will be returned.
 	// var re = /(?:\.([^.]+))?$/; 	// get extension regexp TODO:deprecated
 
@@ -178,7 +179,6 @@ watch.createMonitor(location.src, function (monitor) {
 		// if new template --> assembleComponent
 		// if new file with same name as template - update .json(s)
 		var extension = path.extname(filePath).toLowerCase();
-		console.log(extension);
 		if(extension === extensions.template){
 			var component = new Component(filePath);
 			assembleComponent(component);
@@ -191,6 +191,10 @@ watch.createMonitor(location.src, function (monitor) {
 				componentRender(component);
 			}
 		}
+
+
+		console.log(component);
+		console.table(components);
 	})
 	monitor.on("changed", function (f, curr, prev) {
 		console.log('changed', f);
