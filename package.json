@@ -23,10 +23,9 @@
   "homepage": "https://github.com/karlisup/styleguide#readme",
   "devDependencies": {
     "better-console": "^0.2.4",
+    "jshint": "^2.9.2",
     "mkdirp": "^0.5.1",
     "twig": "^0.8.9",
     "watch": "^0.17.1"
   }
 }
-
-
