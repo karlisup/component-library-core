@@ -2,19 +2,28 @@
 'use strict';
 
 // load dependencies
-const fs = require('fs');					//filesystem
+const fs = require('graceful-fs');				//filesystem
 const path	= require('path');					//paths
 const console = require('better-console');
 const Twig = require('twig');
 const twig = Twig.twig;						//twig render function
 const watch = require('watch');
 const rimraf = require('rimraf'); 			// remove folder
+// const hl = require('highlight').Highlight;  // code highlighter
+// const showdown = require('showdown').Converter();
+const marked = require('marked');     		// markdown to HTML + higlight.js
 // local dependencies
 const helpers = require('./helpers');
+const render = require('./TemplateEngine');
 
 // -------------------------------------
 //  Helper functions
 // -------------------------------------
+marked.setOptions({
+  highlight: function (code) {
+    return require('./highlight').highlightAuto(code).value;
+  }
+});
 helpers.init();
 
 
@@ -27,7 +36,6 @@ helpers.init();
 //  Settings
 // -------------------------------------
  
-
 module.exports = function(options){
 
 	function getOptions (options) {
@@ -48,14 +56,14 @@ module.exports = function(options){
 	function Component(filePath){
 		this.path = ''; // relateive url
 		this.name = '';
-		this.tmpl = '';
+		this.tmpl = {};
 		this.data = '';
-		this.info = '';
+		this.info = {};
 
 		if(filePath){
 			this.path = path.dirname(filePath).split(opts.location.src)[1]; // relative folder url
 			this.name = path.basename(filePath, opts.extensions.template); ///foo/bar/baz/asdf/quux.html ==> quux;
-			this.tmpl = path.join(this.path, this.name+opts.extensions.template);
+			this.tmpl.path = path.join(this.path, this.name+opts.extensions.template);
 		}
 	}
 
@@ -77,35 +85,7 @@ module.exports = function(options){
 	function treeToJSON(dir, buildComponentsList){
 		buildComponentsList = typeof buildComponentsList !== 'undefined' ? buildComponentsList : false;
 		var output = [];				// variable which later will be returned.
-		// var re = /(?:\.([^.]+))?$/; 	// get extension regexp TODO:deprecated
 
-		// Produce this JSON structure:
-		// [{
-		// 	"name": "january",
-		// 	"path": "winter/january",
-		// 	"type": "directory",
-		// 	"children": [
-		// 		{
-		// 			"path": "winter/january/ski.png",
-		// 			"name": "ski.png",
-		// 			"type": "png"
-		// 		},
-		// 		{
-		// 			"path": "winter/january/snowboard.jpg",
-		// 			"name": "snowboard.jpg",
-		// 			"type": "jpg"
-		// 		}
-		// 	]
-		// }]
-		// 
-		// Save components in array like:
-		// [{
-		// 	"path": "src/to/",
-		// 	"name": "component",
-		// 	"tmpl": "src/to/component.tmpl",
-		// 	"data": "src/to/component.json",
-		// 	"info": "src/to/component.md",
-		// }]
 		fs.readdirSync(dir).filter(function(file){
 			var whitelisted = false;
 			var item = {};
@@ -145,7 +125,7 @@ module.exports = function(options){
 					component.data = path.join(component.path, file);
 					break;
 					case '.md':
-					component.info = path.join(component.path, file);
+					component.info.path = path.join(component.path, file);
 					break;
 				}
 			}
@@ -160,21 +140,13 @@ module.exports = function(options){
 		// TODO make sure that there are no components in dest folder before creating new
 		// could be the situation when .json files are missing/deleted, but dest component folder is still there
 		treeStructure = treeToJSON(opts.location.src, true);
-
-		for (var key in components) {
-			if (components.hasOwnProperty(key)) {
-				componentRender(components[key]);
-			}
-		}
+		renderAllComponents();
 
 		// save tree structure & components in .json files
 		console.table(treeStructure);
-		// console.log(JSON.stringify(treeStructure, null, 4));
 		console.table(components);
-		// console.log(opts.location.styleguide+'treeStructure.json');
-		// console.log(opts.location.styleguide+'components.json');
-		helpers.writeFile(opts.location.styleguide+'treeStructure.json', JSON.stringify(treeStructure, null, 4));
-		helpers.writeFile(opts.location.styleguide+'components.json', JSON.stringify(components, null, 4));
+		// helpers.writeFile(opts.location.styleguide+'treeStructure.json', JSON.stringify(treeStructure, null, 4));
+		// helpers.writeFile(opts.location.styleguide+'components.json', JSON.stringify(components, null, 4));
 	}
 
 
@@ -183,30 +155,6 @@ module.exports = function(options){
 	// -------------------------------------
 	//  component related functions
 	// -------------------------------------
-	function componentRender(component){
-		console.info('Rendering component: '+component.name);
-		var templateData;
-		var	templateContents = fs.readFileSync(opts.location.src+component.tmpl).toString();
-		if(component.data !== ''){
-			try{
-				templateData = JSON.parse(fs.readFileSync(path.join(opts.location.src, component.data), 'utf8'));
-			}catch(e){
-				console.error(e);
-			}
-		}
-		
-		// compile template with given data
-		var template = twig({ data: templateContents});
-		var output = template.render(templateData);
-		component.compiled = path.join(component.path, component.name+opts.extensions.output);
-
-		// create file
-		helpers.writeFile(path.join(opts.location.dest, component.compiled), output, function(err){
-			if(err){
-				console.error(err);
-			}
-		});
-	}
 
 	function componentExist(filePath){
 		//TODO if passed colors.txt -- will still return colors object (there are no limitation for .extensions)
@@ -238,7 +186,7 @@ module.exports = function(options){
 					component.data = relativeFileLocation;
 					break;
 					case '.md':
-					component.info = relativeFileLocation;
+					component.info.path = relativeFileLocation;
 					break;
 				}
 			}
@@ -248,7 +196,7 @@ module.exports = function(options){
 					component.data = '';
 					break;
 					case '.md':
-					component.info = '';
+					component.info.path = '';
 					break;
 				}
 			}
@@ -289,8 +237,8 @@ module.exports = function(options){
 	}
 
 	function templateDelete(component){
-		console.warn('Deleting template: '+component.tmpl);
-		var templateUrl = path.join(opts.location.dest, component.compiled);
+		console.warn('Deleting template: '+component.tmpl.path);
+		var templateUrl = path.join(opts.location.dest, component.tmpl.compiled);
 		fs.exists(templateUrl, function(exists) {
 			if(exists) {
 				fs.unlinkSync(templateUrl);			// delete destination file (template)
@@ -313,6 +261,86 @@ module.exports = function(options){
 	function reloadTreeStructure(){
 		treeStructure = treeStructure = treeToJSON(opts.location.src);
 		helpers.writeFile(opts.location.styleguide+'treeStructure.json', JSON.stringify(treeStructure, null, 4));
+	}
+
+	function renderAllComponents(){
+		for (var key in components) {
+			if (components.hasOwnProperty(key)) {
+				componentRender(components[key]);
+			}
+		}
+	}
+
+
+	function componentRender(component){
+		console.info('Rendering component: '+component.name);
+		
+
+		// -------------------------------------
+		//  Load files
+		// -------------------------------------
+		
+		// load template
+		var	templateContents = fs.readFileSync(opts.location.src+component.tmpl.path).toString();
+		var componentContents = fs.readFileSync(opts.location.styleguide+'component.template').toString();
+
+		// load data
+		var templateData;
+		if(component.data !== ''){
+			try{
+				templateData = JSON.parse(fs.readFileSync(path.join(opts.location.src, component.data), 'utf8'));
+			}catch(e){
+				console.error(e);
+			}
+		}
+
+		// load markdown (readme)
+		var templateInfo;
+		if(component.info.path !== undefined){
+			try{
+				templateInfo = fs.readFileSync(path.join(opts.location.src, component.info.path), 'utf8');
+			}catch(e){
+				console.error(e);
+			}
+		}
+
+		
+		// -------------------------------------
+		//  Prepare content
+		// -------------------------------------
+
+		// compile Markdown to HTML
+		// console.log(templateInfo);
+		if(templateInfo) component.info.compiled = marked(templateInfo);
+
+		// compile template with given data
+		var template = twig({ data: templateContents});
+		component.tmpl.raw = marked(templateContents);
+		component.tmpl.compiled = template.render(templateData);
+
+
+		// -------------------------------------
+		//  Compose component
+		// -------------------------------------
+		var data = {
+			'compInfo': component.info.compiled,
+			'tmplUrl': component.tmpl.path,
+			'compCompiled': component.tmpl.compiled,
+			'compRaw': component.tmpl.raw
+		}
+		componentContents = render(componentContents, data);
+
+
+		// -------------------------------------
+		//  Render component
+		// -------------------------------------
+		component.compiled = path.join(component.path, component.name+opts.extensions.output);
+		// create file
+		helpers.writeFile(path.join(opts.location.dest, component.compiled), componentContents, function(err){
+			if(err){
+				console.error(err);
+			}
+		});
 	}
 
 
@@ -348,7 +376,8 @@ module.exports = function(options){
 			// if exist re-render component
 			var component = componentExist(filePath);
 			if(component){
-				componentRender(component);
+				renderAllComponents();
+				// componentRender(component);
 			}
 			
 		});
