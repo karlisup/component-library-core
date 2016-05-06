@@ -32,5 +32,11 @@ module.exports = {
 
 			fs.writeFile(path, contents, cb);
 		});
+	},
+
+	replaceTabs: function(text ,replacement){
+		text.replace(/^((<[^>]+>|\t)+)/gm, function(match, p1) {
+			return p1.replace(/\t/g, replacement);
+		});
 	}
 };

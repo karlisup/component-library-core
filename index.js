@@ -15,15 +15,18 @@ const marked = require('marked');     		// markdown to HTML + higlight.js
 // local dependencies
 const helpers = require('./helpers');
 const render = require('./TemplateEngine');
-
+const hljs = require('./highlight');
 // -------------------------------------
-//  Helper functions
+//  Configuration & Helper functions
 // -------------------------------------
 marked.setOptions({
   highlight: function (code) {
-    return require('./highlight').highlightAuto(code).value;
+    return hljs.highlightAuto(code).value;
   }
 });
+
+// hljs.configure({tabReplace: '    '}); // 4 spaces  doesn't work! TODO
+
 helpers.init();
 
 
@@ -283,6 +286,7 @@ module.exports = function(options){
 		// load template
 		var	templateContents = fs.readFileSync(opts.location.src+component.tmpl.path).toString();
 		var componentContents = fs.readFileSync(opts.location.styleguide+'component.template').toString();
+		var layoutContents = fs.readFileSync(opts.location.styleguide+'layout.template').toString();
 
 		// load data
 		var templateData;
@@ -310,13 +314,22 @@ module.exports = function(options){
 		// -------------------------------------
 
 		// compile Markdown to HTML
-		// console.log(templateInfo);
 		if(templateInfo) component.info.compiled = marked(templateInfo);
 
 		// compile template with given data
 		var template = twig({ data: templateContents});
-		component.tmpl.raw = marked(templateContents);
 		component.tmpl.compiled = template.render(templateData);
+
+		// var iframe = {}
+		// iframe.header = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Component</title><meta content="telephone=no" name="format-detection"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content=""><meta name="author" content="Karlis Upitis"><!-- place for twitter/facebook cards --><!-- style --><link rel="stylesheet" type="text/css" href="/assets/css/style.css"></head><body>';
+		// iframe.footer = '</body></html>';
+
+
+		// compile raw template content to Raw Code Example [TODO: make this look good]
+		var templateContents2 = templateContents.replace(/^((<[^>]+>|\t)+)/gm, function(match, p1) {
+		return p1.replace(/\t/g, '    ');
+		});
+		component.tmpl.raw = hljs.highlightAuto(templateContents2).value;
 
 
 		// -------------------------------------
@@ -329,6 +342,7 @@ module.exports = function(options){
 			'compRaw': component.tmpl.raw
 		}
 		componentContents = render(componentContents, data);
+		componentContents = render(layoutContents, {'content':componentContents});
 
 
 		// -------------------------------------
