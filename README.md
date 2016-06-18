@@ -1,0 +1,36 @@
+# Component Library Generator core
+It does the dirty job. In 'components' folder, for each template file (.twig, .hb, .mustache, .tt2, etc.) from 'components' folder it finds
+* description (.md)
+* test data (.json)
+and returns
+a) documentation
+b) how does component looks like in iframe (so you can put e.g. 'position: fixed' elements in there)
+c) see raw template / style / data 
+
+
+## Steps
+Simple things it does:
+1. get / set options
+'''javascript
+module.exports = function (options) {
+  var opts = options || {}
+
+  opts.location = (opts.location) ? opts.location : {}
+  opts.extensions = (opts.extensions) ? opts.extensions : {}
+
+  opts.location.root = opts.location.root || '/'
+  opts.location.src = opts.location.src || '..\\..\\src\\components\\'
+  opts.location.dest = opts.location.dest || '..\\..\\dest\\components\\'
+  opts.location.styleguide = opts.location.styleguide || '..\\..\\src\\styleguide\\'
+
+  opts.extensions.template = opts.extensions.template || '.twig'
+  opts.extensions.output = opts.extensions.output || '.html'
+
+  return opts
+}
+'''
+2. saves components from folder into JSON
+3. renders
+  * component (documentation, navigation)
+  * raw.component
+  * dashboard (could be style guidelines or any other components you want to highlight) 
