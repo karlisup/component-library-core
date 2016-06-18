@@ -1,17 +1,18 @@
 # Component Library Generator core
-It does the dirty job. In 'components' folder, for each template file (.twig, .hb, .mustache, .tt2, etc.) from 'components' folder it finds
+It does the dirty job. In `components` folder, for each template file (.twig, .hb, .mustache, .tt2, etc.)
 * description (.md)
 * test data (.json)
-and returns
+is been added.
+Returns
 a) documentation
 b) how does component looks like in iframe (so you can put e.g. 'position: fixed' elements in there)
-c) see raw template / style / data 
+c) see raw template / style (.sass, .less) / data 
 
 
 ## Steps
 Simple things it does:
 1. get / set options
-'''javascript
+```javascript
 module.exports = function (options) {
   var opts = options || {}
 
@@ -28,7 +29,7 @@ module.exports = function (options) {
 
   return opts
 }
-'''
+```
 2. saves components from folder into JSON
 3. renders
   * component (documentation, navigation)
