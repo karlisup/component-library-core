@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0"
-  }
+  },
   "scripts": {
     "lint": "./node_modules/.bin/jshint . --reporter=./node_modules/jshint-full-path/index.js"
   },
