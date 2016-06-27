@@ -1,26 +1,26 @@
 {
-  "name": "styleguide",
+  "name": "component-library-core",
   "version": "1.0.0",
-  "description": "Future npm module for generating wonderful styleguide",
+  "description": "Flexible component library generator core",
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/jshint . --reporter=./node_modules/jshint-full-path/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karlisup/styleguide.git"
+    "url": "git+https://github.com/karlisup/component-library-core.git"
   },
   "keywords": [
+  	"component"
     "styleguide",
-    "css",
-    "generator"
+    "css"
   ],
   "author": "Karlis Upitis",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/karlisup/styleguide/issues"
+    "url": "https://github.com/karlisup/component-library-core/issues"
   },
-  "homepage": "https://github.com/karlisup/styleguide#readme",
+  "homepage": "https://github.com/karlisup/component-library-core#readme",
   "devDependencies": {
     "better-console": "^0.2.4",
     "chai": "^3.5.0",
