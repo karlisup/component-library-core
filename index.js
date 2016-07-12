@@ -3,7 +3,7 @@
 
 var console = require('better-console')
 
-var getOptions 	= require('./lib/compolib.getOptions')
+var getOptions = require('./lib/compolib.getOptions')
 var build = require('./lib/compolib.build')
 // var watch = require('./lib/compolib.watch')
 
@@ -20,5 +20,3 @@ function CompoLib (options) {
 }
 
 module.exports = CompoLib
-
-
