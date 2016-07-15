@@ -12,6 +12,7 @@ function CompoLib (options) {
 
   opts.treeStructure = []
   opts.components = []
+  opts.searchableItems = []
   opts.navigationContents = ''
 
   console.info('Building Component Library')
