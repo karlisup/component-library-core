@@ -11,7 +11,7 @@ generates **beautiful preview**
 ![Component Preview](http://www.neteye-blog.com/wp-content/uploads/2016/08/notification.png)
 
 ## Usage
-This is how it is used in [http://gulpjs.com/](Gulp).
+This is how it is used in [Gulp](http://gulpjs.com/).
 ```javascript
 gulp.task('styleguide', function (done) {
   styleguide({
@@ -44,4 +44,5 @@ This is work in progress. It lacks
 - [ ] write 3 more tests (_"action not perfection"_)
 
 Sincerely Yours,
+
 Karlis ☝
