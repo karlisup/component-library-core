@@ -1,3 +1,4 @@
+[ build status img here ]
 # Component Library Generator core
 It does the dirty job. In `components` folder, for each template file (.twig, .hb, .mustache, .tt2, etc.)
 * description (.md)
