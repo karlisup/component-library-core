@@ -1,4 +1,5 @@
-[ build status img here ]
+[![Build Status](https://travis-ci.org/karlisup/component-library-core.svg?branch=master)](https://travis-ci.org/karlisup/component-library-core)
+
 # Component Library Generator core
 It does the dirty job. In `components` folder, for each template file (.twig, .hb, .mustache, .tt2, etc.)
 * description (.md)
