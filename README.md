@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/karlisup/component-library-core.svg?branch=master)](https://travis-ci.org/karlisup/component-library-core)
+[![Coverage Status](https://coveralls.io/repos/github/karlisup/component-library-core/badge.svg?branch=master)](https://coveralls.io/github/karlisup/component-library-core?branch=master)
 
 # Component Library Generator core
 It does the dirty job. From `src` folder it takes each `.twig` template file and by adding 
