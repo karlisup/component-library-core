@@ -1,7 +1,7 @@
 /* jslint node: true */
 'use strict'
 
-var console = require('better-console')
+// var console = require('better-console')
 
 var getOptions = require('./lib/compolib.getOptions')
 var build = require('./lib/compolib.build')
@@ -15,7 +15,7 @@ function CompoLib (options) {
   opts.searchableItems = []
   opts.navigationContents = ''
 
-  console.info('Building Component Library')
+  // console.info('Building Component Library')
   build(opts)
   // watch(opts)
 }
