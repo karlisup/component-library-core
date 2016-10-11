@@ -29,6 +29,15 @@ gulp.task('styleguide', function (done) {
 })
 ```
 
+## Develping
+
+ - Clone the github project in a new directory `git clone https://github.com/karlisup/component-library-core`
+ - Install npm dependencies `npm install`
+ - Create a global link to the module `npm link`
+ - Create a new project otside the compnent-library-core project
+ - Install compnent-library-core in the new project `npm install component-library-core`
+ - Set te link to the local project `npm link component-library-core`
+
 
 ## TODO
 This is work in progress. It lacks
