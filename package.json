@@ -1,7 +1,7 @@
 {
   "name": "component-library-core",
   "description": "Flexible component library generator core",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "homepage": "https://github.com/karlisup/component-library-core",
   "main": "index.js",
   "dependencies": {
@@ -47,8 +47,11 @@
   "readme": "# Component Library Generator core\nIt does the dirty job. In `components` folder, for each template file (.twig, .hb, .mustache, .tt2, etc.)\n* description (.md)\n* test data (.json)\nis been added.\nReturns\na) documentation\nb) how does component looks like in iframe (so you can put e.g. 'position: fixed' elements in there)\nc) see raw template / style (.sass, .less) / data \n\n\n## Steps\nSimple things it does:\n* get / set options\n  ```javascript\n  module.exports = function (options) {\n    var opts = options || {}\n  \n    opts.location = (opts.location) ? opts.location : {}\n    opts.extensions = (opts.extensions) ? opts.extensions : {}\n  \n    opts.location.root = opts.location.root || '/'\n    opts.location.src = opts.location.src || '..\\\\..\\\\src\\\\components\\\\'\n    opts.location.dest = opts.location.dest || '..\\\\..\\\\dest\\\\components\\\\'\n    opts.location.styleguide = opts.location.styleguide || '..\\\\..\\\\src\\\\styleguide\\\\'\n  \n    opts.extensions.template = opts.extensions.template || '.twig'\n    opts.extensions.output = opts.extensions.output || '.html'\n  \n    return opts\n  }\n  ```\n* saves components from folder into JSON\n* renders\n  * component (documentation, navigation)\n  * raw.component\n  * dashboard (could be style guidelines or any other components you want to highlight) \n",
   "readmeFilename": "README.md",
   "gitHead": "65b4616b0689e657fe3cddeec093c880fed71ef7",
-  "_id": "component-library-core@1.0.1",
-  "_shasum": "a5225a33bf741a58053495b6628e503dc0bf6e69",
-  "_from": "component-library-core@1.0.1",
-  "license": "MIT"
+  "_id": "component-library-core@1.0.9",
+  "_shasum": "7cfaa9b6ced8ab939ba95c26d7bfbd5d7bc4f066",
+  "_from": "component-library-core@*",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karlisup/component-library-core/issues"
+  }
 }

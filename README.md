@@ -7,6 +7,7 @@ It does the dirty job. From `src` folder it takes each `.twig` template file and
 * test data (.json *optional*),
 * style (.scss *optional*)
 * javascript (.js *optional*)
+* demo (.demo.twig *optional*) (thanks to @davbizz )
 generates **beautiful preview**
 
 ![Component Preview](http://www.neteye-blog.com/wp-content/uploads/2016/08/notification.png)
@@ -43,7 +44,7 @@ gulp.task('styleguide', function (done) {
 This is work in progress. It lacks
 - [ ] real documentation
 - [ ] `.tt` template support (important in ongoing project)
-- [ ] option to pass JSON test data width `data@`
+- [x] __option to pass JSON test data width `data@`__
 ```json
 {"sidebar": {
     "title": "Some title",
