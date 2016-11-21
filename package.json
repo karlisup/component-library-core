@@ -1,7 +1,7 @@
 {
   "name": "component-library-core",
   "description": "Flexible component library generator core",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "homepage": "https://github.com/karlisup/component-library-core",
   "main": "index.js",
   "dependencies": {
