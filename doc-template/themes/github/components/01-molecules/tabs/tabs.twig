@@ -1,0 +1,10 @@
+<div class="cl-tabs {{class}}">
+	<ul class="cl-tabs__list">
+		{% for item in items %}
+			<li class="cl-tabs__item" id="tab-{{item.id}}" role="tab" aria-selected="{% if loop.first %}true{% else %}false{% endif %}" aria-controls="panel-{{item.id}}">{{item.title}}</li>
+		{% endfor %}
+	</ul>
+	{% for item in items %}
+	<div class="cl-tabs__panel" id="panel-{{item.id}}" role="tabpanel" aria-hidden="{% if loop.first %}false{% else %}true{% endif %}" aria-labelledby="tab-{{item.id}}">{{item.content}}</div>
+	{% endfor %}
+</div>

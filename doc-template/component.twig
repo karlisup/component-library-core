@@ -1,0 +1,33 @@
+{% extends 'layout.twig' %}
+{% block content %}
+<div class="st-folder">
+	{% if compInfo %}
+	<div class="st-folder__readme">{{ compInfo }}</div>
+	{% endif %}
+	<section class="st-folder__template">
+		<header class="st-folder__header">
+			<h2 class="st-folder__path">
+				<a href="{{ compRawUrl }}">{{ tmplUrl }}</a>
+			</h2>
+		</header>
+		<div class="st-folder__content">
+			<div class="st-folder__component">
+				<iframe src="{{ compRawUrl }}"></iframe>
+				<script>
+					$(function () {
+						$('iframe').load(function () {
+							console.log("resize")
+							console.log(this)
+							this.style.height
+									= this.contentWindow.document.body.scrollHeight + "px"
+						})
+					})
+				</script>
+			</div>
+			<div class="st-folder__code">
+				{% include 'themes/github/components/01-molecules/tabs/tabs.twig' with { "class": "st-folder__code", "items": compCode }  %}
+			</div>
+		</div>
+	</section>
+</div>
+{% endblock %}

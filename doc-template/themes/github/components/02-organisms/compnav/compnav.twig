@@ -1,0 +1,21 @@
+{% set count = searchableItems.length %}
+<div class="cl-compnav" {{class}}>
+	<header class="cl-compnav__header">
+		<h3 class="cl-compnav__title">
+			{{title}}
+			{% include 'themes/github/components/00-atoms/badge/badge.twig' with { "count":count } %}
+		</h3>
+	</header>
+	<div class="cl-compnav__filterbar">
+		{% include 'themes/github/components/00-atoms/search/search.twig' with {"id":"searchBox", "placeholder": "Find a component..."} %}
+		{% include 'themes/github/components/01-molecules/filter/filter.twig' %}
+	</div>
+	<nav class="cl-compnav__nav">
+		<script>
+			// inject searchable items in global scope
+			var searchableItems = {{ searchableItems|json_encode() }}
+			// var searchableItems = {{ searchableItems|json_encode() }}
+		</script>
+		{# search results #}
+		{% include 'themes/github/components/01-molecules/resultlist/resultlist.twig' with {"id":"searchResults"} %}
+</div>

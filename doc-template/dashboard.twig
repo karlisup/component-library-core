@@ -1,0 +1,39 @@
+{# Highly mofifiable layout file | Using .twig as templating engine #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Chewingum</title>
+	<meta content="telephone=no" name="format-detection">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Karlis Upitis">
+	<!-- TODO: place for twitter/facebook cards -->
+
+	<!-- style -->
+	<link rel="stylesheet" type="text/css" href="{{root}}assets/chewingum.css">
+	<script src="{{root}}assets/jquery-2.2.3.min.js"></script>
+</head>
+<body>
+	{# {{ navigation }} #}
+	<div class="clib" id="page">
+		<header class="clib__header"></header>
+		<div class="clib__wrapper">
+			<div class="clib__container">
+				<main class="clib__main" role="main">
+					{% block content %}There is no content{% endblock %}
+				</main>
+				<aside class="clib__sidebar">
+					{% include 'themes/github/components/02-organisms/compnav/compnav.twig' with {'title': 'Your components', 'searchableItems': searchableItems} %}
+				</aside>
+			</div>
+		</div>
+		<div class="clib__container">
+			<footer class="clib__footer"></footer>
+		</div>
+	</div>
+
+	<!-- javascript goes here -->
+	<script src="{{root}}assets/chewingum.js"></script>
+</body>
+</html>

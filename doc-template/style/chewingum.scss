@@ -1,0 +1,178 @@
+// *************************************
+//
+//  Chewingum
+//  
+// *************************************
+
+
+// -------------------------------------
+//  Vendor styles
+// -------------------------------------
+@import 'vendor/_reset'; // Mayber reset
+@import 'vendor/_monokai'; //code highlighting
+@import 'vendor/_github-markdown'; //Markdown style
+
+@import 'mixins';
+
+// -------------------------------------
+//  Component(-s) styles
+// -------------------------------------
+
+// theme Github
+@import '../themes/github/components/00-atoms/colors/colors';
+@import '../themes/github/components/00-atoms/badge/badge';
+@import '../themes/github/components/00-atoms/search/search';
+@import '../themes/github/components/01-molecules/tabs/tabs';
+@import '../themes/github/components/01-molecules/filter/filter';
+@import '../themes/github/components/01-molecules/resultlist/resultlist';
+@import '../themes/github/components/02-organisms/compnav/compnav';
+
+
+
+// -------------------------------------
+//  Global styles
+// -------------------------------------
+
+html {
+    box-sizing: border-box;
+}
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+
+// -------------------------------------
+//  Layout styles
+// -------------------------------------
+.clib{
+	&__container {
+		@include clearfix;
+		width: 960px;
+		margin: 0 auto;
+	}
+	&__header {
+		height: 48px;
+		padding: 10px 0;
+
+		background-color: #f5f5f5;
+	    border-bottom: 1px solid #e5e5e5;
+	}
+	&__wrapper {
+	}
+		&__main, &__sidebar {
+			float: left;
+			padding-top: 20px;
+		}
+		&__main {
+			width: 66%;
+		}
+		&__sidebar {
+			width: 32%;
+			margin-left: 2%;
+		}
+	&__footer {
+		margin-top: 40px;
+		padding: 40px 0;
+
+		border-top: 1px solid #EEEEEE;
+	}
+}
+
+
+// -------------------------------------
+//  Component layout style
+// -------------------------------------
+// pre > code blocks inherit style from  highlight.js
+.st-folder__readme, .st-folder__code{
+	pre > code{
+		@extend .hljs;
+	}
+}
+
+
+.st-folder{
+	margin-bottom: 4.5rem;
+	&__header{
+
+	}
+		&__path{
+			color: #000000;
+			/* counter-reset: h3; */
+			font-family: inherit;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 1.5;
+			/* margin: 30px 0 15px -25px; */
+			margin: 30px 0 15px 0px;
+			padding: 0 25px;
+			position: relative;
+			&:after{
+				border-bottom: 1px solid #EEEEEE;
+				content: "";
+				left: 0;
+				position: absolute;
+				right: 0;
+				top: 50%;
+			}
+			a{
+			    position: relative;
+				display: inline-block;
+			    padding: 0 5px;
+				
+				color: #333333;
+				font-family: Arial,Helvetica,sans-serif;
+				text-decoration: none;
+
+				background-color: #ffffff;
+				z-index: 1;
+				&:before{
+					color: #999999;
+					/* content: counter(h1, decimal) "." counter(h2, decimal) ". ";
+					counter-increment: h3 1; */
+				}
+				&:hover{
+					text-decoration: underline;
+				}
+			}
+		}
+	&__content{
+		iframe{
+			width: 100%;
+		}
+	}
+
+	&__code{
+		font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+		margin-top: 1em;
+		
+		.cl-tabs {
+			&__item{
+				border-radius: 3px 3px 0 0;
+				bottom: -3px;
+				&[aria-selected="true"] {
+					background-color: #272822;
+					color: white
+				}
+			}
+			&__panel {
+
+			}
+		}
+		// font-size: 16px;
+		// taken from github markdown
+		pre{
+			// margin-bottom: 16px;
+			overflow: auto;
+			
+			border-radius: 3px;
+			font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+			font-size: 85%;
+			line-height: 1.45;
+			word-break: normal;
+			white-space: pre;
+			tab-size: 4;
+			> code{
+				padding: 16px;
+			}
+		}
+	}
+}

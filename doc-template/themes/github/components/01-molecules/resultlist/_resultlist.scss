@@ -1,0 +1,46 @@
+.cl-resultlist {
+	&__list {
+
+	}
+		&__link {
+			display: block;
+			padding: 6px 6px 6px 30px;
+			border-top: 1px solid #e5e5e5;
+			text-decoration: none;
+			&:hover {
+				.cl-resultlist__text {
+					text-decoration: underline;
+				}
+			}
+			&:focus {
+				background-color: #fff9ea;
+			}
+		}
+	&__ellipsis {
+		@include ellipsis();
+		max-width: 100%;
+		display: inline-block;
+		line-height: 20px; // to align ellipsis ...
+		color: #d8d8d8; // to color ellipsis ...
+	}
+		&__text, &__descr {
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 1.5;
+			vertical-align: top;
+		}
+		&__text {
+			@include ellipsis();
+			max-width: 110px;
+			display: inline-block;
+			
+			color: #4078c0;
+		}
+		&__descr {
+			color: #d8d8d8;
+			font-weight: 400;
+		}
+		&__highlighted {
+			text-decoration: underline;
+		}
+}
