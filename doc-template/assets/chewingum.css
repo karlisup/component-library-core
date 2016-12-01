@@ -1,0 +1,1052 @@
+/* line 8, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+/* line 18, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* line 21, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+body {
+  line-height: 1; }
+
+/* line 24, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 27, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+blockquote, q {
+  quotes: none; }
+
+/* line 31, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+/* line 36, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* line 40, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* custom reset */
+/* line 45, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_reset.scss */
+html {
+  -webkit-text-size-adjust: none;
+  /* prevent font scaling in landscape */ }
+
+/*
+Monokai style - ported by Luigi Maselli - http://grigio.org
+*/
+/* line 5, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs, .st-folder__readme pre > code, .st-folder__code pre > code {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #272822;
+  color: #ddd; }
+
+/* line 12, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-tag,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-strong,
+.hljs-name {
+  color: #f92672; }
+
+/* line 21, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-code {
+  color: #66d9ef; }
+
+/* line 25, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-class .hljs-title {
+  color: white; }
+
+/* line 29, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-attribute,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-link {
+  color: #bf79db; }
+
+/* line 36, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-title,
+.hljs-section,
+.hljs-emphasis,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #a6e22e; }
+
+/* line 54, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e; }
+
+/* line 61, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_monokai.scss */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-title,
+.hljs-section,
+.hljs-type,
+.hljs-selector-id {
+  font-weight: bold; }
+
+@font-face {
+  font-family: octicons-link;
+  src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format("woff"); }
+
+/* line 6, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word; }
+
+/* line 16, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme a {
+  background-color: transparent; }
+
+/* line 20, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme a:active,
+.st-folder__readme a:hover {
+  outline: 0; }
+
+/* line 25, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme strong {
+  font-weight: bold; }
+
+/* line 29, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/* line 34, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme img {
+  border: 0; }
+
+/* line 38, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme hr {
+  box-sizing: content-box;
+  height: 0; }
+
+/* line 43, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme pre {
+  overflow: auto; }
+
+/* line 47, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme code,
+.st-folder__readme kbd,
+.st-folder__readme pre {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* line 54, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme input {
+  color: inherit;
+  font: inherit;
+  margin: 0; }
+
+/* line 60, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme html input[disabled] {
+  cursor: default; }
+
+/* line 64, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme input {
+  line-height: normal; }
+
+/* line 68, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0; }
+
+/* line 73, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 78, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme td,
+.st-folder__readme th {
+  padding: 0; }
+
+/* line 83, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme * {
+  box-sizing: border-box; }
+
+/* line 87, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme input {
+  font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+
+/* line 91, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme a {
+  color: #4078c0;
+  text-decoration: none; }
+
+/* line 96, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme a:hover,
+.st-folder__readme a:active {
+  text-decoration: underline; }
+
+/* line 101, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd; }
+
+/* line 110, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme hr:before {
+  display: table;
+  content: ""; }
+
+/* line 115, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme hr:after {
+  display: table;
+  clear: both;
+  content: ""; }
+
+/* line 121, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1,
+.st-folder__readme h2,
+.st-folder__readme h3,
+.st-folder__readme h4,
+.st-folder__readme h5,
+.st-folder__readme h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1; }
+
+/* line 132, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1 {
+  font-size: 30px; }
+
+/* line 136, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h2 {
+  font-size: 21px; }
+
+/* line 140, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h3 {
+  font-size: 16px; }
+
+/* line 144, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h4 {
+  font-size: 14px; }
+
+/* line 148, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h5 {
+  font-size: 12px; }
+
+/* line 152, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h6 {
+  font-size: 11px; }
+
+/* line 156, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme blockquote {
+  margin: 0; }
+
+/* line 160, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme ul,
+.st-folder__readme ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0; }
+
+/* line 167, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme ol ol,
+.st-folder__readme ul ol {
+  list-style-type: lower-roman; }
+
+/* line 172, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme ul ul ol,
+.st-folder__readme ul ol ol,
+.st-folder__readme ol ul ol,
+.st-folder__readme ol ol ol {
+  list-style-type: lower-alpha; }
+
+/* line 179, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme dd {
+  margin-left: 0; }
+
+/* line 183, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme code {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px; }
+
+/* line 188, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+
+/* line 194, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .select::-ms-expand {
+  opacity: 0; }
+
+/* line 198, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .octicon {
+  font: normal normal normal 16px/1 octicons-link;
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+/* line 211, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .octicon-link:before {
+  content: '\f05c'; }
+
+/* line 215, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme:before {
+  display: table;
+  content: ""; }
+
+/* line 220, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme:after {
+  display: table;
+  clear: both;
+  content: ""; }
+
+/* line 226, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme > *:first-child {
+  margin-top: 0 !important; }
+
+/* line 230, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme > *:last-child {
+  margin-bottom: 0 !important; }
+
+/* line 234, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme a:not([href]) {
+  color: inherit;
+  text-decoration: none; }
+
+/* line 239, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .anchor {
+  display: inline-block;
+  padding-right: 2px;
+  margin-left: -18px; }
+
+/* line 245, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .anchor:focus {
+  outline: none; }
+
+/* line 249, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1,
+.st-folder__readme h2,
+.st-folder__readme h3,
+.st-folder__readme h4,
+.st-folder__readme h5,
+.st-folder__readme h6 {
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4; }
+
+/* line 261, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1 .octicon-link,
+.st-folder__readme h2 .octicon-link,
+.st-folder__readme h3 .octicon-link,
+.st-folder__readme h4 .octicon-link,
+.st-folder__readme h5 .octicon-link,
+.st-folder__readme h6 .octicon-link {
+  color: #000;
+  vertical-align: middle;
+  visibility: hidden; }
+
+/* line 272, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1:hover .anchor,
+.st-folder__readme h2:hover .anchor,
+.st-folder__readme h3:hover .anchor,
+.st-folder__readme h4:hover .anchor,
+.st-folder__readme h5:hover .anchor,
+.st-folder__readme h6:hover .anchor {
+  text-decoration: none; }
+
+/* line 281, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1:hover .anchor .octicon-link,
+.st-folder__readme h2:hover .anchor .octicon-link,
+.st-folder__readme h3:hover .anchor .octicon-link,
+.st-folder__readme h4:hover .anchor .octicon-link,
+.st-folder__readme h5:hover .anchor .octicon-link,
+.st-folder__readme h6:hover .anchor .octicon-link {
+  visibility: visible; }
+
+/* line 290, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee; }
+
+/* line 297, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h1 .anchor {
+  line-height: 1; }
+
+/* line 301, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee; }
+
+/* line 308, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h2 .anchor {
+  line-height: 1; }
+
+/* line 312, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h3 {
+  font-size: 1.5em;
+  line-height: 1.43; }
+
+/* line 317, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h3 .anchor {
+  line-height: 1.2; }
+
+/* line 321, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h4 {
+  font-size: 1.25em; }
+
+/* line 325, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h4 .anchor {
+  line-height: 1.2; }
+
+/* line 329, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h5 {
+  font-size: 1em; }
+
+/* line 333, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h5 .anchor {
+  line-height: 1.1; }
+
+/* line 337, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h6 {
+  font-size: 1em;
+  color: #777; }
+
+/* line 342, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme h6 .anchor {
+  line-height: 1.1; }
+
+/* line 346, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme p,
+.st-folder__readme blockquote,
+.st-folder__readme ul,
+.st-folder__readme ol,
+.st-folder__readme dl,
+.st-folder__readme table,
+.st-folder__readme pre {
+  margin-top: 0;
+  margin-bottom: 16px; }
+
+/* line 357, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none; }
+
+/* line 365, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme ul,
+.st-folder__readme ol {
+  padding-left: 2em; }
+
+/* line 370, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme ul ul,
+.st-folder__readme ul ol,
+.st-folder__readme ol ol,
+.st-folder__readme ol ul {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+/* line 378, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme li > p {
+  margin-top: 16px; }
+
+/* line 382, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme dl {
+  padding: 0; }
+
+/* line 386, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold; }
+
+/* line 394, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px; }
+
+/* line 399, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd; }
+
+/* line 405, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme blockquote > :first-child {
+  margin-top: 0; }
+
+/* line 409, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme blockquote > :last-child {
+  margin-bottom: 0; }
+
+/* line 413, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all; }
+
+/* line 421, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme table th {
+  font-weight: bold; }
+
+/* line 425, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme table th,
+.st-folder__readme table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd; }
+
+/* line 431, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc; }
+
+/* line 436, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme table tr:nth-child(2n) {
+  background-color: #f8f8f8; }
+
+/* line 440, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme img {
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: #fff; }
+
+/* line 446, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme code {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  border-radius: 3px; }
+
+/* line 456, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme code:before,
+.st-folder__readme code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0"; }
+
+/* line 462, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  border: 0; }
+
+/* line 472, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .highlight {
+  margin-bottom: 16px; }
+
+/* line 476, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .highlight pre,
+.st-folder__readme pre {
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px; }
+
+/* line 486, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .highlight pre {
+  margin-bottom: 0;
+  word-break: normal; }
+
+/* line 491, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme pre {
+  word-wrap: normal; }
+
+/* line 495, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme pre code {
+  /* custom added */
+  padding: 16px;
+  max-width: initial;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  border: 0; }
+
+/* line 509, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme pre code:before,
+.st-folder__readme pre code:after {
+  content: normal; }
+
+/* line 514, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb; }
+
+/* line 528, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-c {
+  color: #969896; }
+
+/* line 532, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-c1,
+.st-folder__readme .pl-s .pl-v {
+  color: #0086b3; }
+
+/* line 537, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-e,
+.st-folder__readme .pl-en {
+  color: #795da3; }
+
+/* line 542, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-s .pl-s1,
+.st-folder__readme .pl-smi {
+  color: #333; }
+
+/* line 547, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-ent {
+  color: #63a35c; }
+
+/* line 551, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-k {
+  color: #a71d5d; }
+
+/* line 555, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-pds,
+.st-folder__readme .pl-s,
+.st-folder__readme .pl-s .pl-pse .pl-s1,
+.st-folder__readme .pl-sr,
+.st-folder__readme .pl-sr .pl-cce,
+.st-folder__readme .pl-sr .pl-sra,
+.st-folder__readme .pl-sr .pl-sre {
+  color: #183691; }
+
+/* line 565, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-v {
+  color: #ed6a43; }
+
+/* line 569, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-id {
+  color: #b52a1d; }
+
+/* line 573, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-ii {
+  background-color: #b52a1d;
+  color: #f8f8f8; }
+
+/* line 578, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-sr .pl-cce {
+  color: #63a35c;
+  font-weight: bold; }
+
+/* line 583, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-ml {
+  color: #693a17; }
+
+/* line 587, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mh,
+.st-folder__readme .pl-mh .pl-en,
+.st-folder__readme .pl-ms {
+  color: #1d3e81;
+  font-weight: bold; }
+
+/* line 594, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mq {
+  color: #008080; }
+
+/* line 598, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mi {
+  color: #333;
+  font-style: italic; }
+
+/* line 603, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mb {
+  color: #333;
+  font-weight: bold; }
+
+/* line 608, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-md {
+  background-color: #ffecec;
+  color: #bd2c00; }
+
+/* line 613, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mi1 {
+  background-color: #eaffea;
+  color: #55a532; }
+
+/* line 618, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mdr {
+  color: #795da3;
+  font-weight: bold; }
+
+/* line 623, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .pl-mo {
+  color: #1d3e81; }
+
+/* line 627, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb; }
+
+/* line 641, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .task-list-item {
+  list-style-type: none; }
+
+/* line 645, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .task-list-item + .task-list-item {
+  margin-top: 3px; }
+
+/* line 649, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme .task-list-item input {
+  margin: 0 0.35em 0.25em -1.6em;
+  vertical-align: middle; }
+
+/* line 654, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/vendor/_github-markdown.scss */
+.st-folder__readme :checked + .radio-label {
+  z-index: 1;
+  position: relative;
+  border-color: #4078c0; }
+
+/* line 2, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/_mixins.scss */
+.cl-tabs:after, .cl-tabs__list:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* line 1, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/00-atoms/badge/_badge.scss */
+.cl-badge {
+  display: inline-block;
+  padding: 2px 5px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #babec0;
+  border-radius: 20px;
+  line-height: 1; }
+
+/* line 1, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/00-atoms/search/_search.scss */
+.cl-search {
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  min-height: 28px;
+  padding: 3px 8px;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075) inset;
+  outline: medium none;
+  vertical-align: middle; }
+
+/* line 6, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/tabs/tabs.scss */
+.cl-tabs__item {
+  float: left;
+  padding: 10px 15px;
+  position: relative;
+  bottom: -1px;
+  font-size: 1em;
+  line-height: 1.2em;
+  cursor: pointer;
+  border: 1px solid transparent; }
+  /* line 16, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/tabs/tabs.scss */
+  .cl-tabs__item[aria-selected="true"] {
+    border: 1px solid black;
+    border-bottom: 1px solid transparent;
+    background-color: white; }
+
+/* line 23, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/tabs/tabs.scss */
+.cl-tabs__panel {
+  box-sizing: border-box;
+  width: 100%;
+  display: none;
+  overflow-x: auto; }
+  /* line 32, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/tabs/tabs.scss */
+  .cl-tabs__panel[aria-hidden="false"] {
+    display: block; }
+
+/* line 1, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/filter/_filter.scss */
+.cl-filter {
+  margin-top: 6px;
+  display: inline-block; }
+  /* line 5, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/filter/_filter.scss */
+  .cl-filter__item {
+    display: inline-block; }
+  /* line 8, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/filter/_filter.scss */
+  .cl-filter__button {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 5px 6px;
+    font-size: 12px;
+    color: #767676;
+    -moz-appearance: none;
+    -moz-user-select: none;
+    background-color: transparent;
+    border: 0 none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    text-transform: none;
+    overflow: visible;
+    cursor: pointer; }
+    /* line 24, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/filter/_filter.scss */
+    .cl-filter__button:hover {
+      border-color: #e5e5e5; }
+    /* line 27, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/filter/_filter.scss */
+    .cl-filter__button--active {
+      border-bottom-color: #d26911;
+      color: #333333;
+      outline: medium none;
+      text-decoration: none; }
+      /* line 32, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/filter/_filter.scss */
+      .cl-filter__button--active:hover {
+        border-color: #d26911; }
+
+/* line 5, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+.cl-resultlist__link {
+  display: block;
+  padding: 6px 6px 6px 30px;
+  border-top: 1px solid #e5e5e5;
+  text-decoration: none; }
+  /* line 11, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+  .cl-resultlist__link:hover .cl-resultlist__text {
+    text-decoration: underline; }
+  /* line 15, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+  .cl-resultlist__link:focus {
+    background-color: #fff9ea; }
+
+/* line 19, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+.cl-resultlist__ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
+  line-height: 20px;
+  color: #d8d8d8; }
+
+/* line 26, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+.cl-resultlist__text, .cl-resultlist__descr {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  vertical-align: top; }
+
+/* line 32, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+.cl-resultlist__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 110px;
+  display: inline-block;
+  color: #4078c0; }
+
+/* line 39, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+.cl-resultlist__descr {
+  color: #d8d8d8;
+  font-weight: 400; }
+
+/* line 43, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/01-molecules/resultlist/_resultlist.scss */
+.cl-resultlist__highlighted {
+  text-decoration: underline; }
+
+/* line 1, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/02-organisms/compnav/_compnav.scss */
+.cl-compnav {
+  width: 313px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  border-radius: 3px;
+  border: 1px solid #d8d8d8; }
+  /* line 7, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/02-organisms/compnav/_compnav.scss */
+  .cl-compnav__header {
+    height: 38px;
+    padding: 9px 10px 10px;
+    background-color: #f5f5f5; }
+  /* line 13, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/02-organisms/compnav/_compnav.scss */
+  .cl-compnav__title {
+    line-height: 17px;
+    font-size: 14px;
+    font-weight: 600; }
+  /* line 20, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/themes/github/components/02-organisms/compnav/_compnav.scss */
+  .cl-compnav__filterbar {
+    padding: 10px 10px 0 10px;
+    border-top: 1px solid #d8d8d8;
+    background-color: #fafafa;
+    text-align: center; }
+
+/* line 36, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+html {
+  box-sizing: border-box; }
+
+/* line 39, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+*, *::after, *::before {
+  box-sizing: inherit; }
+
+/* line 47, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.clib__container {
+  width: 960px;
+  margin: 0 auto; }
+  /* line 10, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/_mixins.scss */
+  .clib__container:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+/* line 52, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.clib__header {
+  height: 48px;
+  padding: 10px 0;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5; }
+
+/* line 61, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.clib__main, .clib__sidebar {
+  float: left;
+  padding-top: 20px; }
+
+/* line 65, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.clib__main {
+  width: 66%; }
+
+/* line 68, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.clib__sidebar {
+  width: 32%;
+  margin-left: 2%; }
+
+/* line 72, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.clib__footer {
+  margin-top: 40px;
+  padding: 40px 0;
+  border-top: 1px solid #EEEEEE; }
+
+/* line 92, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+.st-folder {
+  margin-bottom: 4.5rem; }
+  /* line 97, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+  .st-folder__path {
+    color: #000000;
+    /* counter-reset: h3; */
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    /* margin: 30px 0 15px -25px; */
+    margin: 30px 0 15px 0px;
+    padding: 0 25px;
+    position: relative; }
+    /* line 108, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+    .st-folder__path:after {
+      border-bottom: 1px solid #EEEEEE;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 50%; }
+    /* line 116, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+    .st-folder__path a {
+      position: relative;
+      display: inline-block;
+      padding: 0 5px;
+      color: #333333;
+      font-family: Arial,Helvetica,sans-serif;
+      text-decoration: none;
+      background-color: #ffffff;
+      z-index: 1; }
+      /* line 127, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+      .st-folder__path a:before {
+        color: #999999;
+        /* content: counter(h1, decimal) "." counter(h2, decimal) ". ";
+					counter-increment: h3 1; */ }
+      /* line 132, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+      .st-folder__path a:hover {
+        text-decoration: underline; }
+  /* line 138, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+  .st-folder__content iframe {
+    width: 100%; }
+  /* line 143, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+  .st-folder__code {
+    font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    margin-top: 1em; }
+    /* line 148, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+    .st-folder__code .cl-tabs__item {
+      border-radius: 3px 3px 0 0;
+      bottom: -3px; }
+      /* line 151, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+      .st-folder__code .cl-tabs__item[aria-selected="true"] {
+        background-color: #272822;
+        color: white; }
+    /* line 162, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+    .st-folder__code pre {
+      overflow: auto;
+      border-radius: 3px;
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 85%;
+      line-height: 1.45;
+      word-break: normal;
+      white-space: pre;
+      -moz-tab-size: 4;
+           tab-size: 4; }
+      /* line 173, /Users/karlis/Desktop/new-chewingum/node_modules/component-library-core/doc-template/style/chewingum.scss */
+      .st-folder__code pre > code {
+        padding: 16px; }
