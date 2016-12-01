@@ -1,4 +1,4 @@
-var src = 'doc-template'
+var src = ''
 var dest = 'assets'
 var theme = 'github'
 
@@ -12,7 +12,7 @@ gulp.task('style', function (done) {
   var processors = [
     autoprefixer({browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3']})
   ]
-  return gulp.src(src + '/style/chewingum.scss')
+  return gulp.src(src + 'style/chewingum.scss')
     .pipe(sass({
       sourceComments: true
     }).on('error', sass.logError))
@@ -21,7 +21,7 @@ gulp.task('style', function (done) {
 })
 
 gulp.task('javascript', function (done) {
-  return gulp.src(src + '/themes/' + theme + '/components/**/*.js')
+  return gulp.src(src + 'themes/' + theme + '/components/**/*.js')
     .pipe(concat('chewingum.js'))
     .pipe(gulp.dest(dest))
 })
